@@ -1,0 +1,4 @@
+watchdog
+evernote
+pyyaml
+coloredlogs

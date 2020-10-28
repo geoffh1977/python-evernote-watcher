@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Build Image
+docker build -f "${DOCKERFILE_PATH}" -t "${IMAGE_NAME}" .
