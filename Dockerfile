@@ -15,6 +15,7 @@ RUN python2 -m ensurepip && \
 # Build Final Application Image
 FROM base
 
+LABEL maintainer="Geoffrey Harrison <geoffh1977@gmail.com>"
 COPY --from=builder /install /usr
 COPY app /app/
 WORKDIR /app
