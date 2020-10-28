@@ -4,7 +4,7 @@ Read Me Is A Work In Progress!
 
 Example Application Configuration:
 
-```python
+```yaml
 watcher:
   patternMatching:
     extensions:

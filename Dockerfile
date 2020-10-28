@@ -10,7 +10,6 @@ RUN mkdir /install
 WORKDIR /install
 COPY app/requirements.txt /requirements.txt
 RUN python2 -m ensurepip && \
-  pip install --upgrade pip && \
   pip install --prefix=/install -r /requirements.txt
 
 # Build Final Application Image

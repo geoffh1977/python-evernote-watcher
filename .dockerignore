@@ -1,3 +1,6 @@
 .venv/
 configs/
 hooks/
+.gitignore
+LICENSE.md
+README.md

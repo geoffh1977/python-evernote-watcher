@@ -3,6 +3,7 @@
 # Push Additional Version If Master Branch
 if [ "${SOURCE_BRANCH}" = "main" ]
 then
-    docker tag "${IMAGE_NAME}" "${DOCKER_REPO}:${SOURCE_COMMIT}"
-    docker push "${DOCKER_REPO}:${SOURCE_COMMIT}"
+    VERSION=$(date +%Y%m%d%H%M) ; export VERSION
+    docker tag "${IMAGE_NAME}" "${DOCKER_REPO}:${VERSION}"
+    docker push "${DOCKER_REPO}:${VERSION}"
 fi
