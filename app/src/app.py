@@ -35,7 +35,7 @@ def new_file_detected(event):
         }
 
         # Upload Note To Evernote
-        note = EvernoteUpload(config['evernote']['api']['token'])
+        note = EvernoteUpload(dev_token=config['evernote']['api']['token'], sandbox=config['evernote']['api']['sandbox'], china=config['evernote']['api']['china'])
         note.upload_to_notebook(event.src_path, metadata)
         os.remove(event.src_path)
 

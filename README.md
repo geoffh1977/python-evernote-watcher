@@ -59,6 +59,8 @@ watcher:
 evernote:
   api:
     token: 'YOUR_EVERNOTE_TOKEN'
+    sandbox: True
+    china: False
   notebook:
     destination: 'INBOX'
   note:
@@ -92,6 +94,8 @@ Other environment variables that can be passed to docker at startup to modify th
 | **APP_CONFIG_FILE**  | Changes the location of the config.yaml file in the application container itself. |
 | **APP_WATCH_DIR**    | Changes the location of the watch directory in the application container. |
 | **EVERNOTE_API_KEY** | An override so the Evernote API Key can be passed as a variable at startup. |
+| **EVERNOTE_API_SANDBOX** | An override to tell the API to use the sandbox or production servers. |
+| **EVERNOTE_API_CHINA** | An override to use the international servers or servers in China. |
 
  Using these options, a more complex start-up of the application may look like this:
 

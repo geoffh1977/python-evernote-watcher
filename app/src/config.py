@@ -22,6 +22,8 @@ def load_config(configFile=os.environ.get('APP_CONFIG_FILE') or "config.yaml"):
         # Config Override With OS Environment Variables
         config['watcher']['observer']['path'] = os.environ.get('APP_WATCH_DIR') or config['watcher']['observer']['path']
         config['evernote']['api']['token'] = os.environ.get('APP_EVERNOTE_TOKEN') or config['evernote']['api']['token']
+        config['evernote']['api']['sandbox'] = os.environ.get('APP_EVERNOTE_SANDBOX') or config['evernote']['api']['sandbox']
+        config['evernote']['api']['china'] = os.environ.get('APP_EVERNOTE_CHINA') or config['evernote']['api']['china']
 
         # Output Final Config
         logger.debug("Loaded Configuration: " + yaml.dump(config))

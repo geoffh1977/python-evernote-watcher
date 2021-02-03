@@ -15,13 +15,13 @@ from evernote.edam.error.ttypes import EDAMErrorCode
 logger = logging.getLogger(__name__)
 
 class EvernoteUpload(object):
-    def __init__(self, dev_token):
-        self._connect_to_evernote(dev_token)
+    def __init__(self, dev_token, sandbox=False, china=False):
+        self._connect_to_evernote(dev_token, sandbox, china)
 
-    def _connect_to_evernote(self, dev_token):
+    def _connect_to_evernote(self, dev_token, sandbox, china):
         user = None
         try:
-            self.client = EvernoteClient(token=dev_token)
+            self.client = EvernoteClient(token=dev_token, sandbox=sandbox, china=china)
             self.user_store = self.client.get_user_store()
             user = self.user_store.getUser()
         except EDAMUserException as e:
