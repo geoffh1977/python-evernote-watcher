@@ -2,14 +2,13 @@
 
 ![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/geoffh1977/evernote-watcher?style=plastic) ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/geoffh1977/evernote-watcher?style=plastic) ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/geoffh1977/evernote-watcher/latest?style=plastic) ![Docker Pulls](https://img.shields.io/docker/pulls/geoffh1977/evernote-watcher?style=plastic)
 
-The Evernote Directory Watcher is a Python based application which monitors a single directory and uploads any files matching a set of file extensions to a new note in Evernote. The application is an improvement over my previous application _Evernote Monitor_ which had a number of issues.
-
-
+The Evernote Directory Watcher is a Python based application which monitors a single directory and uploads any files matching a set of file extensions as a new note in Evernote. The application is an improvement over my previous application _Evernote Monitor_ which had a number of issues.
 
 ## Issues and Improvements
 A previous project name _Evernote Monitor_ provided the same function as the new _Evernote Watcher_, however, a number of issues have been addressed and improvements made to the base code and configuration:
+
 |                Issue                | Issue With Evernote Monitor                                  | Fix In Evernote Watcher                                      |
-| :---------------------------------: | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ----------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 |         **Script Language**         | Originally written in bash which only provided limited functionality | Python based re-write with opens up the application to new possibilities. |
 |      **Document Transmission**      | Documents were sent to Evernote via SMTP (email). This was an insecure method for sending confidential documents. | Documents are now sent via the Evernote API directly to Evernote. Communications is encrypted from the application to the cloud service. |
 |        **Files Not Closed**         | Files would always be sent every 60 seconds, even if the files being written to were incomplete. This resulted in damaged files in Evernote. | Files are now monitored for closure. Files will only be uploaded when the file is closed. |
@@ -20,8 +19,6 @@ A previous project name _Evernote Monitor_ provided the same function as the new
 
 Other issues exist in the previous version of the software, these are just the issues that were first detected and seem to cause the most problems.
 
-
-
 ## Running The Application
 
 ### Pre-requisites
@@ -29,12 +26,21 @@ Other issues exist in the previous version of the software, these are just the i
 In order to run the application, the following pre-requisites are required:
 
 - **A version of Docker** - If you want to constantly monitor a directory path, this will need to be running on a 24/7 server where files are copied too.
-- **An Evernote API key** - A Sandbox API key will work for testing purposes, but for sending documents to the _normal_ Evernote account, it will need to be a Production API key. [You can apply for a new Evernote API key here](https://dev.evernote.com/doc/).
+- **An Evernote API key** - A Sandbox API key will work for testing purposes, but for sending documents to the _normal_ Evernote account, it will need to be a Production API key.
 - **A configuration file** - A pre-created configuration file which is written for your purposes
 - **Application Docker Image** - The docker image itself. Available on Docker Hub.
 
+### Getting An Evernote API Key
 
+As the main intention was to use the application for a small circle of users, OAuth functionality has not been included in the code. As such, an Evernote API key is required for the application to function. To get an API key:
 
+1. Goto the [Development Evernote Website](https://dev.evernote.com/).
+2. Apply for a new API key by selecting the "Get An API Key" from the top-right corner. Fill out the form and get your key.
+3. Got the [API Token Link] (https://dev.evernote.com/get-token/). You can get a token for the Testing Sandbox straight away via this link.
+4. To use the API key in _production_ evernote - Fill out the form on their [FAQ] (https://dev.evernote.com/support/faq.php) page. It is located under _"How do I copy my API key from Sandbox to www (production)?"_
+5. Once activated - return to the [API Token Link] (https://dev.evernote.com/get-token/) and select the _production_ option when generating the key and linking your evernote account.
+
+If enough users are interested, OAuth may be added in the future to skip all these steps.
 ### Application configuration
 
 The application configuration is needed before running the docker image. Without the configuration file, an error will just be generated stating there is "no configuration file". Below is an example of a configuration file. Most fields should be self explanatory - simply copy and paste this config and adjust for your purposes.
@@ -69,7 +75,6 @@ evernote:
       - Tag1
       - Tag2
 ```
-
 
 
 ### Starting the application
@@ -119,9 +124,7 @@ While wanting the functionality, replacing the MFC was not something I was willi
 
 ### Why write it as a docker image
 
-My entire home server setup is running Kubernetes, this includes services such as media, home automation, and even a Minecraft server for my kids. As such, putting the application in a docker image for my use case makes perfect sense.
-
-The SMB/CIFS drive which the scanned documents are written to is on a NAS. By mounting this path as NFS to a Kubernetes Pod, the sending of the files takes place seamlessly and the container is monitored by the Kubernetes orchestrator on my primary server to ensure it is up.
+My entire home server setup is running on Docker, this includes services such as media, home automation, and even a Minecraft server for my kids. As such, putting the application in a docker image for my use case makes perfect sense.
 
 ### How does the application actually work
 
